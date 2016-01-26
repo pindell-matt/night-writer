@@ -9,9 +9,9 @@ class NightWriterTest < Minitest::Test
   end
 
   def test_converts_one_char
-    char = "h"
+    char = "a"
     submitted = @night_writer.convert_to_braille(char)
-    expected = "0.\n00\n.."
+    expected = "0.\n..\n.."
 
     assert_equal expected, submitted
   end
@@ -28,6 +28,15 @@ class NightWriterTest < Minitest::Test
     char = "hello world"
     submitted = @night_writer.convert_to_braille(char)
     expected = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0..."
+
+    assert_equal expected, submitted
+  end
+
+  def test_converts_uppercase_char
+    skip
+    char = "A"
+    submitted = @night_writer.convert_to_braille(char)
+    expected = "..0.\n....\n.0.."
 
     assert_equal expected, submitted
   end

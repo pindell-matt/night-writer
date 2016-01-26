@@ -29,13 +29,18 @@ class NightWriter
   end
 
   def char_lookup(char)
-    Hash[char, CHAR_TO_BRAILLE.fetch(char)]
+    if char == char.upcase && char != " "
+      Hash[char, CHAR_TO_BRAILLE.fetch('^') + CHAR_TO_BRAILLE.fetch(char.downcase)]
+    else
+      Hash[char, CHAR_TO_BRAILLE.fetch(char)]
+    end
   end
 
 end
 
 if __FILE__ == $0
 nw = NightWriter.new
+# binding.pry
 puts nw.convert_to_braille("hello")
 
 end
