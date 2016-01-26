@@ -9,6 +9,7 @@ class NightWriter
   end
 
   def process_rows(processed_word)
+    binding.pry
     first_row = processed_word.map do |hash|
       hash.values[0][0]
     end
@@ -27,7 +28,7 @@ class NightWriter
   def convert_word(word)
     result = word.chars.map do |char|
       if char == char.upcase && char != ' '
-        [char_lookup('^'), char_lookup(char)]
+        [char_lookup('^'), char_lookup(char.downcase)]
       else
         char_lookup(char)
       end
@@ -36,11 +37,7 @@ class NightWriter
   end
 
   def char_lookup(char)
-    if char == char.upcase && char != " "
-      Hash[char, CHAR_TO_BRAILLE.fetch(char.downcase)]
-    else
-      Hash[char, CHAR_TO_BRAILLE.fetch(char)]
-    end
+    Hash[char, CHAR_TO_BRAILLE.fetch(char)]
   end
 
 end
