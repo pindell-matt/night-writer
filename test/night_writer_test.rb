@@ -4,11 +4,30 @@ require 'pry'
 
 class NightWriterTest < Minitest::Test
 
-  def test_converts_one_char_to_braille
-    night_writer = NightWriter.new
+  def setup
+    @night_writer = NightWriter.new
+  end
+
+  def test_converts_one_char
     char = "h"
-    submitted = night_writer.print_braille(char)
+    submitted = @night_writer.convert_to_braille(char)
     expected = "0.\n00\n.."
+
+    assert_equal expected, submitted
+  end
+
+  def test_converts_one_word
+    char = "hello"
+    submitted = @night_writer.convert_to_braille(char)
+    expected = "0.0.0.0.0.\n00.00.0..0\n....0.0.0."
+
+    assert_equal expected, submitted
+  end
+
+  def test_convers_one_phrase
+    char = "hello world"
+    submitted = @night_writer.convert_to_braille(char)
+    expected = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0..."
 
     assert_equal expected, submitted
   end
