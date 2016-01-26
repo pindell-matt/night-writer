@@ -33,7 +33,6 @@ class NightWriterTest < Minitest::Test
   end
 
   def test_converts_uppercase_char
-    skip
     char = "A"
     submitted = @night_writer.convert_to_braille(char)
     expected = "..0.\n....\n.0.."

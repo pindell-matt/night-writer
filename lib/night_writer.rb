@@ -25,12 +25,17 @@ class NightWriter
   end
 
   def convert_word(word)
-    word.chars.map { |char| char_lookup(char) }
+    result = word.chars.map { |char| char_lookup(char) }
+    if word == word.capitalize || word.upcase
+      result.unshift({'^' => [['.', '.'], ['.', '.'], ['.', '0']]})
+    else
+      result
+    end
   end
 
   def char_lookup(char)
     if char == char.upcase && char != " "
-      Hash[char, CHAR_TO_BRAILLE.fetch('^') + CHAR_TO_BRAILLE.fetch(char.downcase)]
+      Hash[char, CHAR_TO_BRAILLE.fetch(char.downcase)]
     else
       Hash[char, CHAR_TO_BRAILLE.fetch(char)]
     end
@@ -41,6 +46,7 @@ end
 if __FILE__ == $0
 nw = NightWriter.new
 # binding.pry
-puts nw.convert_to_braille("hello")
+puts nw.convert_to_braille("Hi")
+puts nw.convert_to_braille("HI")
 
 end
